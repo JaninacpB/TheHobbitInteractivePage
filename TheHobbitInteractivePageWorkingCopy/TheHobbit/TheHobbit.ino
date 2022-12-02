@@ -109,8 +109,6 @@ double noteDurations[] = {
   4, 4, 2, 2, 8, 2, 8, 0.5
 };
 
-
-
 void setup() {
 
   lcd.begin();  // set up number of columns and rows
@@ -125,36 +123,25 @@ void setup() {
   lcd.createChar(7, gandalfTopTwo);
   lcd.createChar(8, gandalfBottomTwo);
 
-  // lcd.setCursor(2, 0);  // move cursor to (2, 0)
-  // lcd.write((byte)0);   // print the custom char at (2, 0)
+  lcd.setCursor(2, 0);  // move cursor to (2, 0) // print the custom char at (2, 0)
 
-  // lcd.setCursor(5, 0);
-  // lcd.write((byte)2);
+  lcd.setCursor(5, 0);
 
-  // lcd.begin();
-  // lcd.backlight();
-
-  // Serial.begin(9600);
+  Serial.begin(9600);
 
   // //Button und Kippschalterverbindung
-  // pinMode(switchPinKipp, INPUT);
+  pinMode(switchPinKipp, INPUT);
   // button.setDebounceTime(50);  // set debounce time to 50 milliseconds
 
-
-
-  //  lcd.setCursor(2, 0);
-
-  // lcd.print((byte)0);
-
-  // lcd.print("Hoch und runter");
-  // lcd.setCursor(0, 1);
-  // lcd.print("mach mich munter");
-
-  // lcd.setCursor(8, 0);
-  // riddleShake();
+  lcd.setCursor(0, 0);
+  lcd.print("Shake but ");
+  lcd.setCursor(0, 1);
+  lcd.print("not break");
+  
+  riddleShake();
 }
 
-void loop() {
+void animationPlay() {
 
   for (int i = 0; i < 15; i++) {
     lcd.setCursor(i, 1);
@@ -214,9 +201,9 @@ void riddleShake() {
       if (switchStateKipp == LOW) {
         lcd.clear();
         lcd.setCursor(0, 0);
-        lcd.print("Sehr gut,");
+        lcd.print("Good done,");
         lcd.setCursor(0, 1);
-        lcd.print("kleiner Hobbit!");
+        lcd.print("little Hobbit!");
         playHobbit();
       }
     }
@@ -255,10 +242,12 @@ void playVocabel() {
     int analogReading = analogRead(FORCE_SENSOR_PIN);
 
     if (analogReading > 900) {
+
       lcd.clear();
       lcd.setCursor(0, 0);
-      lcd.print("Good job");
-      loopMethod = false;
+      for (int i = 0; i < 5; i++) {
+        animationPlay(); 
+      }
     }
   }
 }
